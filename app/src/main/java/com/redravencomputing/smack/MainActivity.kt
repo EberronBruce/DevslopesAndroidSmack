@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
             this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
-        Log.d("Test", "OnCreate")
     }
 
     override fun onBackPressed() {
@@ -51,7 +50,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun loginBtnNavClicked(view: View) {
-        Log.d("Test", "login tapped")
         val loginIntent = Intent(this, LoginActivity::class.java)
         startActivity(loginIntent)
     }
