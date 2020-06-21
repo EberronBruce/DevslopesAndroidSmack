@@ -1,8 +1,10 @@
 package com.redravencomputing.smack
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.Menu
+import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -33,6 +35,7 @@ class MainActivity : AppCompatActivity() {
             this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
+        Log.d("Test", "OnCreate")
     }
 
     override fun onBackPressed() {
@@ -43,6 +46,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun loginBtnNavClicked(view: View) {
+        Log.d("Test", "login tapped")
+    }
 
+    fun addChannelClicked(view: View) {
+        Log.d("Test", "Add channel tapped")
+    }
 
+    fun sendMsgBtnClicked(view: View) {
+        Log.d("Test", "Message send tapped")
+    }
 }
