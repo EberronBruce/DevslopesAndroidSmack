@@ -64,6 +64,7 @@ class MainActivity : AppCompatActivity() {
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
         setupAdapters()
+        LocalBroadcastManager.getInstance(this).registerReceiver(userDataChangeReceiver, IntentFilter(BROADCAST_USER_DATA_CHANGE))
 
         channel_list.setOnItemClickListener { _, _, i, _ ->
             selectedChannel = MessageService.channels[i]
@@ -74,11 +75,6 @@ class MainActivity : AppCompatActivity() {
         if (App.prefs.isLoggedIn) {
             AuthService.findUserByEmail(this){}
         }
-    }
-
-    override fun onResume() {
-        LocalBroadcastManager.getInstance(this).registerReceiver(userDataChangeReceiver, IntentFilter(BROADCAST_USER_DATA_CHANGE))
-        super.onResume()
     }
 
     override fun onDestroy() {
@@ -144,6 +140,7 @@ class MainActivity : AppCompatActivity() {
             userImageNavHeader.setImageResource(R.drawable.profiledefault)
             userImageNavHeader.setBackgroundColor(Color.TRANSPARENT)
             loginBtnNavHeader.text = "Login"
+            mainChannelName.text = "Please Login"
         } else {
             val loginIntent = Intent(this, LoginActivity::class.java)
             startActivity(loginIntent)
@@ -215,7 +212,7 @@ class MainActivity : AppCompatActivity() {
         if (App.prefs.isLoggedIn && messageTextField.text.isNotEmpty() && selectedChannel != null) {
             val userId = UserDataService.id
             val channelId = selectedChannel!!.id
-            socket.emit("newMessage", messageTextField.text.toString(), userId, channelId, UserDataService.avatarName,  UserDataService.avatarName, UserDataService.avatarColor)
+            socket.emit("newMessage", messageTextField.text.toString(), userId, channelId, UserDataService.name,  UserDataService.avatarName, UserDataService.avatarColor)
             messageTextField.text.clear()
             hideKeyboard()
         }
